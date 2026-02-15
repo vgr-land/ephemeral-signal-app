@@ -1,0 +1,23 @@
+services:
+  signal:
+    platform: linux/amd64
+    build: .
+    container_name: signal-novnc-ephemeral
+    ports:
+      - "127.0.0.1:6080:6080"
+    shm_size: "1gb"
+    environment:
+      DISPLAY: :1
+      QT_X11_NO_MITSHM: "1"
+      HOME: /home/signal
+      USER: signal
+      XDG_RUNTIME_DIR: /tmp/runtime-signal
+      XDG_CONFIG_HOME: /home/signal/.config
+      XDG_DATA_HOME: /home/signal/.local/share
+      XDG_CACHE_HOME: /home/signal/.cache
+    tmpfs:
+      - /tmp
+      - /home/signal/.config
+      - /home/signal/.local
+      - /home/signal/.cache
+    restart: "no"
